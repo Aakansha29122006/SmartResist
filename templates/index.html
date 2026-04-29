@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartResist — AI-Powered Antibiotic Resistance Prediction</title>
+    <meta name="description" content="SmartResist uses hybrid artificial neural networks and genomic data from NCBI to predict antimicrobial resistance and recommend optimal antibiotic therapies.">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- Floating Bio Elements (DNA, Bacteria, Antibiotics) -->
+<canvas id="bio-canvas"></canvas>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar" id="navbar">
+    <div class="logo">SmartResist</div>
+    <div class="nav-links">
+        <a href="#hero">About</a>
+        <a href="#stats">Statistics</a>
+        <a href="#model-flow">Model</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#prediction">Predict</a>
+    </div>
+</nav>
+
+<!-- ═══════════ SECTION 1: HERO / ABOUT ═══════════ -->
+<section id="hero">
+    <div class="section-inner">
+        <div class="hero-grid">
+            <div class="hero-left reveal">
+                <div class="section-tag">AI-Powered Genomics</div>
+                <h1>Predicting Antibiotic Resistance with <span class="gradient-text">SmartResist</span></h1>
+                <p class="subtitle">
+                    SmartResist integrates multi-layered artificial neural networks with strict rule-based filtering to deliver evidence-based antibiotic recommendations. By mapping pathogen genomic markers directly to phenotypic drug responses, we accelerate the discovery of optimal treatments — all while respecting patient allergies and clinical safety thresholds.
+                </p>
+                <a href="#prediction" class="cta-btn">
+                    Start Prediction
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            </div>
+            <div class="hero-visual reveal">
+                <div class="hero-dna-art">
+                    <!-- DNA Helix - CSS Animated -->
+                    <div class="dna-helix" id="dna-helix"></div>
+                    <!-- Floating info badges -->
+                    <div class="hero-float-badge b1"><span class="badge-icon">🧬</span> Genomic Analysis</div>
+                    <div class="hero-float-badge b2"><span class="badge-icon">💊</span> Drug Ranking</div>
+                    <div class="hero-float-badge b3"><span class="badge-icon">🛡️</span> Allergy Filtering</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SECTION 2: STATS ═══════════ -->
+<section id="stats">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-tag">Platform Statistics</div>
+            <h2>Built on <span class="gradient-text">Massive</span> Real-World Data</h2>
+            <p class="subtitle">Our model is trained on one of the largest publicly available antimicrobial resistance datasets, ensuring robust and generalizable predictions.</p>
+        </div>
+        <div class="stats-grid reveal">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number" data-target="147237" id="stat-samples">0</div>
+                <div class="stat-label">Dataset Samples</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🧬</div>
+                <div class="stat-number" data-target="1034" id="stat-genes">0</div>
+                <div class="stat-label">Gene Symbols</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💊</div>
+                <div class="stat-number" data-target="139" id="stat-drugs">0</div>
+                <div class="stat-label">Antibiotics</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-number" id="stat-accuracy">—</div>
+                <div class="stat-label">Model Accuracy</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SECTION 3: MODEL FLOW ═══════════ -->
+<section id="model-flow">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-tag">Architecture</div>
+            <h2>How <span class="gradient-text">SmartResist</span> Works</h2>
+            <p class="subtitle">A hybrid system combining deep learning with rule-based clinical filtering across a robust multi-step pipeline.</p>
+        </div>
+        <div class="flow-pipeline reveal">
+            <!-- Step 1 -->
+            <div class="flow-step">
+                <div class="flow-card">
+                    <div class="step-icon">📥</div>
+                    <div class="step-num">Step 1</div>
+                    <div class="step-title">Data Loading</div>
+                    <div class="step-desc">Import genotype & phenotype data from NCBI AMR Portal via HuggingFace</div>
+                </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <!-- Step 2-3 -->
+            <div class="flow-step">
+                <div class="flow-card">
+                    <div class="step-icon">🧹</div>
+                    <div class="step-num">Steps 2–3</div>
+                    <div class="step-title">Data Cleaning</div>
+                    <div class="step-desc">Clean genotype & phenotype data, handle missing values, normalize formats</div>
+                </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <!-- Step 4-5 -->
+            <div class="flow-step">
+                <div class="flow-card">
+                    <div class="step-icon">🔗</div>
+                    <div class="step-num">Steps 4–5</div>
+                    <div class="step-title">Integration</div>
+                    <div class="step-desc">Merge datasets, encode labels, scale numerical features for model input</div>
+                </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <!-- Step 8-11 -->
+            <div class="flow-step">
+                <div class="flow-card">
+                    <div class="step-icon">🧠</div>
+                    <div class="step-num">Steps 8–11</div>
+                    <div class="step-title">ANN Training</div>
+                    <div class="step-desc">MLP with embeddings, BCE loss, class weighting, early stopping (batch=1024)</div>
+                </div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <!-- Step 12-17 -->
+            <div class="flow-step">
+                <div class="flow-card">
+                    <div class="step-icon">🎯</div>
+                    <div class="step-num">Steps 12–17</div>
+                    <div class="step-title">Hybrid Prediction</div>
+                    <div class="step-desc">ANN scoring + rule-based filtering, allergy removal, support ≥ 5 threshold</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SECTION 4: DATASET ═══════════ -->
+<section id="dataset">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-tag">Data Source</div>
+            <h2>Why Our <span class="gradient-text">Dataset</span> Is Reliable</h2>
+        </div>
+        <div class="dataset-grid">
+            <div class="dataset-info reveal">
+                <p>
+                    SmartResist is powered by the <strong>NCBI Antimicrobial Resistance Portal</strong> — a gold-standard, peer-reviewed database maintained by the National Center for Biotechnology Information. The dataset links pathogen genomic markers (genotype) directly to observed drug resistance outcomes (phenotype).
+                </p>
+                <p>
+                    The data spans <strong>48 bacterial species</strong>, providing broad coverage of clinically significant pathogens, and is continuously curated by the global scientific community.
+                </p>
+                <div class="trust-badges">
+                    <div class="trust-badge">
+                        <div class="tb-icon">🏛️</div>
+                        <div class="tb-text">
+                            <h4>NCBI-Backed</h4>
+                            <p>Maintained by the National Institutes of Health, ensuring data quality and scientific rigor.</p>
+                        </div>
+                    </div>
+                    <div class="trust-badge">
+                        <div class="tb-icon">🔬</div>
+                        <div class="tb-text">
+                            <h4>Peer-Reviewed</h4>
+                            <p>Sourced from published clinical studies with standardized antimicrobial susceptibility testing.</p>
+                        </div>
+                    </div>
+                    <div class="trust-badge">
+                        <div class="tb-icon">🌍</div>
+                        <div class="tb-text">
+                            <h4>Global Coverage</h4>
+                            <p>Includes resistance patterns from 48 species across diverse geographic regions.</p>
+                        </div>
+                    </div>
+                    <div class="trust-badge">
+                        <div class="tb-icon">📈</div>
+                        <div class="tb-text">
+                            <h4>147K+ Samples</h4>
+                            <p>Massive training corpus ensures robust generalization across gene–drug interactions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dataset-visual reveal">
+                <div class="dv-card">
+                    <h4>Dataset Composition</h4>
+                    <div class="bar-chart">
+                        <div class="bar-row">
+                            <span class="bar-label">Samples</span>
+                            <div class="bar-track"><div class="bar-fill" style="width: 0%" data-width="100%">147,237</div></div>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">Genes</span>
+                            <div class="bar-track"><div class="bar-fill" style="width: 0%" data-width="70%">1,034</div></div>
+                        </div>
+                        <div class="bar-row">
+                            <span class="bar-label">Drugs</span>
+                            <div class="bar-track"><div class="bar-fill" style="width: 0%" data-width="42%">139</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dv-card">
+                    <h4>Clinical Safety Measures</h4>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span style="color:var(--accent-4);font-size:1.1rem;">✓</span>
+                            <span style="font-size:0.85rem;color:var(--dark);">Support count ≥ 5 enforced for every recommendation</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span style="color:var(--accent-4);font-size:1.1rem;">✓</span>
+                            <span style="font-size:0.85rem;color:var(--dark);">Patient drug allergies automatically excluded</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span style="color:var(--accent-4);font-size:1.1rem;">✓</span>
+                            <span style="font-size:0.85rem;color:var(--dark);">Unseen genes → "Talk to a professional" fallback</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span style="color:var(--accent-4);font-size:1.1rem;">✓</span>
+                            <span style="font-size:0.85rem;color:var(--dark);">Only validated gene–drug pairs allowed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SECTION 5: PREDICTION ═══════════ -->
+<section id="prediction">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-tag">Clinical Tool</div>
+            <h2>Make a <span class="gradient-text">Prediction</span></h2>
+            <p class="subtitle">Enter a resistance gene marker, genomic region, and any patient allergies to receive AI-powered antibiotic recommendations.</p>
+        </div>
+        <div class="predict-grid reveal">
+            <!-- Form Panel -->
+            <div class="form-panel">
+                <div class="input-group">
+                    <label for="gene-input">Gene Symbol</label>
+                    <input type="text" id="gene-input" placeholder="e.g. aac, blaNDM-1, mecA" autocomplete="off">
+                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label for="start-input">Location Start</label>
+                        <input type="number" id="start-input" placeholder="e.g. 85237" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="end-input">Location End</label>
+                        <input type="number" id="end-input" placeholder="e.g. 85782" value="1000">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="allergy-input">Allergic Drugs (Optional)</label>
+                    <input type="text" id="allergy-input" placeholder="Type drug name & press Enter" autocomplete="off">
+                    <div id="allergy-autocomplete" class="autocomplete-items"></div>
+                    <div id="allergy-tags" class="tags-container"></div>
+                </div>
+                <button id="predict-btn" class="primary-btn">🔬 Analyze Resistance</button>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel" id="results-panel">
+                <div class="results-placeholder" id="results-placeholder">
+                    <div class="ph-icon">🧬</div>
+                    <p>Enter a gene symbol and click <strong>Analyze Resistance</strong><br>to see AI-powered recommendations.</p>
+                </div>
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <p style="color:var(--mid-gray);font-size:0.88rem;">Analyzing resistance patterns…</p>
+                </div>
+                <div class="results-content" id="results-content">
+                    <div class="top-rec" id="top-rec">
+                        <div>
+                            <div class="rec-label">Top Recommendation</div>
+                            <div class="rec-drug" id="top-drug">—</div>
+                        </div>
+                        <div class="rec-score" id="top-score">—</div>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="predictionChart"></canvas>
+                    </div>
+                    <table class="results-table">
+                        <thead>
+                            <tr><th>Drug</th><th>Status</th><th>Susceptibility</th><th>Support</th></tr>
+                        </thead>
+                        <tbody id="results-body"></tbody>
+                    </table>
+                </div>
+                <div class="error-msg" id="error-msg" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+    <p>&copy; 2026 SmartResist AI Platform — Evidence-Based Antibiotic Prediction. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/script.js"></script>
+</body>
+</html>
